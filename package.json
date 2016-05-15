@@ -9,6 +9,7 @@
     "express-session": "^1.6.1",
     "letsencrypt-express": "^1.1.5",
     "mongoose": "^4.4.15",
+    "morgan": "^1.7.0",
     "oauth2orize": "^1.0.1",
     "passport": "^0.2.0",
     "passport-http": "^0.2.2",
