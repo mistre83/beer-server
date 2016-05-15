@@ -6,3 +6,5 @@ server.csr
 server.enc.key
 
 server.key
+
+node_modules/**

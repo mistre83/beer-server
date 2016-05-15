@@ -6,14 +6,14 @@ var ejs = require('ejs');
 var session = require('express-session');
 var router = require('./router')
 var passport = require('passport');
+var config = require('./config')
 
 var fs = require('fs');
 var https = require('https');
 
-// Connect to the beerlocker MongoDB
+// Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/beerlocker');
 
-// Create our Express application
 var app = express();
 
 // Set view engine to ejs
@@ -26,16 +26,13 @@ app.use(bodyParser.urlencoded({
 
 // Use express session support since OAuth2orize requires it
 app.use(session({
-  secret: 'Super Secret Session Key',
+  secret: config.secret,
   saveUninitialized: true,
   resave: true
 }));
 
 // Use the passport package in our application
 app.use(passport.initialize());
-
-// Create our Express router
-//var router = express.Router();
 
 // Register all our routes with /api
 app.use('/api', router);
