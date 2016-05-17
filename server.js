@@ -18,9 +18,14 @@ var fs = require('fs');
 var https = require('https');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/beerlocker');
+mongoose.connect(config.database);
+mongoose.connection.on('error', function() {
+  console.info('Database connection failed');
+});
 
 var app = express();
+
+app.set('port', process.env.PORT || 3000);
 
 // Logger setup
 app.use(logger('dev'));
@@ -78,6 +83,11 @@ router.route('/beers/:beer_id')
 // Register all our routes with /api
 app.use('/api', router);
 
+app.listen(app.get('port'), function() {
+  console.log('Server running on port', app.get('port'));
+});
+
+/*
 var options = {
   key: fs.readFileSync('server.key'),
   cert: fs.readFileSync('server.crt')
@@ -86,3 +96,4 @@ var options = {
 https.createServer(options, app).listen(5001, function() {
   console.log('Server started at port 5001');
 })
+*/
